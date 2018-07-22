@@ -6,6 +6,9 @@ if (!empty($data['errors'])) {
 if (!empty($data['task'])) {
     $task = $data['task'];
 }
+if (!empty($data['flag_admin'])) {
+    $flag_admin = $data['flag_admin'];
+}
 
 ?>
 
@@ -39,15 +42,15 @@ if (!empty($data['task'])) {
 
     <?}?>
     <?php
-    if ($_SESSION['admin']) {?>
+    if ($flag_admin == 1) {?>
         <div class="form-group">
             <label>Имя</label>
-            <input class="form-control" type="text" value="<?=$task['name']?>" maxlength="255" readonly />
+            <input class="form-control fn_val_name" type="text" value="<?=$task['name']?>" maxlength="255" readonly />
         </div>
 
         <div class="form-group">
             <label>E-mail</label>
-            <input class="form-control" type="text" value="<?=$task['email']?>" maxlength="255" readonly />
+            <input class="form-control fn_val_email" type="text" value="<?=$task['email']?>" maxlength="255" readonly />
         </div>
 
         <?php if ($task['image']) {?>
@@ -59,23 +62,32 @@ if (!empty($data['task'])) {
     <?} else {?>
         <div class="form-group">
             <label>Имя</label>
-            <input class="form-control" type="text" name="name" data-format=".+" data-notice="Введите имя" value="<?=$task['name']?>" maxlength="255" />
+            <input class="form-control fn_val_name" type="text" name="name" data-format=".+" data-notice="Введите имя" value="<?=$task['name']?>" maxlength="255" />
         </div>
 
         <div class="form-group">
             <label>E-mail</label>
-            <input class="form-control" type="text" name="email" data-format="email" data-notice="Введите email" value="<?=$task['email']?>" maxlength="255" />
+            <input class="form-control fn_val_email" type="text" name="email" data-format="email" data-notice="Введите email" value="<?=$task['email']?>" maxlength="255" />
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlFile1">Добавить изображение</label>
             <?php if ($task['image']) {?>
                 <span class="border border-primary">
-                <img src="/views/images/tasks/<?=$task['image']?>">
-            </span>
+                    <img src="/views/images/tasks/<?=$task['image']?>">
+                </span>
             <?}?>
             <input type="file" class="form-control-file" name="image" id="exampleFormControlFile1">
         </div>
+<!--
+        <div class="fn_dropzone dropzone<?php /*if ($task['image']) {*/?> active<?/*}*/?>">
+            <a href="#" class="fn_remove_image remove_image">х</a>
+            <input name="logo" value="" class="fn_dropinput dropinput fn_logo_input" type="file" />
+            <?php /*if ($task['image']) {*/?>
+            <input name="logo_filename" class="fn_logo_input" type="hidden" value="<?/*=$task['image']*/?>"/>
+            <?/*}*/?>
+            <img src="<?php /*if ($task['image']) {*/?>/views/images/tasks/<?/*=$task['image']*/?>?}?>" class="logo_image" <?php /*if (!$task['image']) {*/?>style="display: none;"<?/*}*/?>/>
+        </div>-->
 
     <?}?>
 

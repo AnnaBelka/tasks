@@ -36,8 +36,12 @@
                 $data['errors'][] = 'empty_body';
             }
 
+            if ($_POST['status']){
+                $this->status = $_POST['status'] == 'on' ? 1 : 0;
+            }
+
             if (empty($data['errors'])) {
-                $query = "INSERT INTO `t_tasks`(`name`, `email`, `body`) VALUES ('$this->name','$this->email','$this->body')";
+                $query = "INSERT INTO `t_tasks`(`name`, `email`, `body`, `status`) VALUES ('$this->name','$this->email','$this->body', '$this->status')";
                 $this->db->query($query);
                 $task_id = $this->db->lastInsertId();
 
@@ -75,7 +79,7 @@
                 }
                 $task = $this->get_task($id);
                 $data['task']=$task['task'];
-
+                $data['flag_admin'] = 1;
                 return $data;
             }
         }
